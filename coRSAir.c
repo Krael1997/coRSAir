@@ -6,54 +6,24 @@
 /*   By: abelrodr <abelrodr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 18:12:16 by abelrodr          #+#    #+#             */
-/*   Updated: 2023/05/02 19:12:09 by abelrodr         ###   ########.fr       */
+/*   Updated: 2023/05/08 15:36:36 by abelrodr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-/*
-                      CREATED BY ABELRODR42                                                                                                   
-                                                                                
-                                                                                
-                                   ,@@@@@@@@@                                   
-                                 @@ @@@@@@@@@@@#                                
-                @                @ @@@@@@@@@@@@@                @               
-                 @@              @@@   @@,   @ @              @@                
-                  @@@             @   .@ @   @              @@@                 
-                    @@@@          @@@@@  @@@@@@           @@@/                  
-                      @@@@         @ @@@@@@            @@@@@                    
-                        @@@@@      @@       @       @@@@@                       
-                           @@@@@,   @@@@@@@@    &@@@@@.                         
-                              @@@ @@        @@& @@@                             
-                       @@@       /@@@ &@@   @@@        @                        
-                         @@ %@@@@@@   @@@@/ @@@@&    @@                         
-                  @@@ @@@@ @@ @@@@          ,@@@@ (@@.@@@@@/@@                  
-                            @@                     @#     @                     
-                                                &                               
-                                                                                
-  ▄▀▄▄▄▄   ▄▀▀▀▀▄   ▄▀▀▄▀▀▀▄  ▄▀▀▀▀▄  ▄▀▀█▄   ▄▀▀█▀▄    ▄▀▀▄▀▀▀▄ 
-█ █    ▌ █      █ █   █   █ █ █   ▐ ▐ ▄▀ ▀▄ █   █  █  █   █   █ 
-▐ █      █      █ ▐  █▀▀█▀     ▀▄     █▄▄▄█ ▐   █  ▐  ▐  █▀▀█▀  
-  █      ▀▄    ▄▀  ▄▀    █  ▀▄   █   ▄▀   █     █      ▄▀    █  
- ▄▀▄▄▄▄▀   ▀▀▀▀   █     █    █▀▀▀   █   ▄▀   ▄▀▀▀▀▀▄  █     █   
-█     ▐           ▐     ▐    ▐      ▐   ▐   █       █ ▐     ▐   
-▐                                           ▐       ▐                                                                                          
-                                                                               
-*/
-
 /* LIBRARYS */
 
-#include <stdlib.h>            // Standard library  
-#include <stdio.h>           // Standard input/output 
-#include <string.h>          // String library
-#include <unistd.h>        // Unix standard library   
-#include <fcntl.h>      // File control library   
-#include <stdint.h>       // Standard integer library
+#include <stdlib.h>                   // Standard library  
+#include <stdio.h>                   // Standard input/output 
+#include <string.h>                 // String library
+#include <unistd.h>                // Unix standard library   
+#include <fcntl.h>                // File control library   
+#include <stdint.h>              // Standard integer library
 
-#include "openssl/bn.h" // Big number library
-#include "openssl/rsa.h" // RSA library
-#include "openssl/pem.h"  // PEM library
-#include "openssl/bio.h"  // BIO library
-#include "openssl/evp.h"  // EVP library
+#include "openssl/bn.h"        // Big number library
+#include "openssl/rsa.h"      // RSA library
+#include "openssl/pem.h"     // PEM library
+#include "openssl/bio.h"    // BIO library
+#include "openssl/evp.h"   // EVP library
 #include "openssl/x509.h" // X509 library
 
 /* CONSTANT */
@@ -65,11 +35,11 @@
 RSA *read_public_key(const char *filename)      // Read the public key
 {
     // Define variables
-    X509 *cert;                         // Certificate
-    EVP_PKEY *pkey;                     // Public key
-    RSA *rsa;                           // RSA key
-    BIO *bio;                           // BIO
-    int correct;                        // Correctness of the function
+    X509 *cert;                         // Certificate X509
+    EVP_PKEY *pkey;                     // Public key from the certificate X509
+    RSA *rsa;                           // RSA key from the public key
+    BIO *bio;                           // BIO to read the file
+    int correct;                        // Correctness of the function for check.
 
     // Initialize variables
     bio = BIO_new(BIO_s_file());        // Initialize BIO
@@ -99,38 +69,69 @@ RSA *read_public_key(const char *filename)      // Read the public key
 /* MAIN */
 int main(int argc, char **argv)       // Main function
 {
+  // Banner
+    printf("\033[31m\n");
+    printf("\033[32m                  CREATED BY ABELRODR42                                                                  \033[0m  \n"); 
+    printf("\033[31m\n");
+    printf("\033[33m                                                               \033[0m\n");
+    printf("\033[31m                         ,@@@@@@@@@                     \033[0m\n");
+    printf("\033[32m                       @@ \033[33m@@@@@@@@@@#\033[32m                  \033[0m\n");
+    printf("\033[31m     @                @ \033[33m@@@@@@@@@@@@\033[31m                @ \033[0m\n");
+    printf("\033[32m      @@              @@@   @@,   @ @              @@  \033[0m\n");
+    printf("\033[31m       @@@             @   .@ @   @              @@@   \033[0m\n"); 
+    printf("\033[32m         @@@@          @@@@@  \033[33m@@@@@@@\033[32m           @@@/    \033[0m\n");
+    printf("\033[31m           @@@@         @ \033[33m@@@@@@@\033[31m            @@@@@      \033[0m\n");
+    printf("\033[32m             @@@@@      @@       @       @@@@@         \033[0m\n");  
+    printf("\033[31m                @@@@@,   \033[33m@@@@@@@\033[31m    &@@@@@.           \033[0m \n");
+    printf("\033[32m                   @@@ @@        @@& @@@               \033[0m\n");
+    printf("\033[31m            @@@       /@@@ &@@   @@@        @          \033[0m\n");
+    printf("\033[32m              %% \033[33m@@@@@@@@   @@@@\033[32m/ @@@@&    @@           \033[0m\n");
+    printf("\033[31m       @@@ \033[33m@@@@\033[31m @@ \033[33m@@@@@\033[31m          ,@@@@ (\033[33m@@.@@@@@\033[31m/@@    \033[0m\n");
+    printf("\033[32m                @@                      @#     @       \033[0m  \n");  
+    printf("\033[31m                                    &                 \033[0m\n");
+    printf("\033[32m  \n"); 
+    printf("\033[31m  ▄▀▄▄▄▄   ▄▀▀▀▀▄   ▄▀▀▄▀▀▀▄  ▄▀▀▀▀▄  ▄▀▀█▄   ▄▀▀█▀▄     ▄▀▀▄▀▀▀▄ \033[0m\n");
+    printf("\033[32m  █ █    ▌ █      █ █   █   █ █ █   ▐ ▐ ▄▀ ▀▄ █   █  █   █   █   █ \033[0m\n");
+    printf("\033[31m  ▐ █      █      █ ▐  █▀▀█▀     ▀▄     █▄▄▄█ ▐   █  ▐  ▐  █▀▀█▀   \033[0m\n");  
+    printf("\033[32m    █      ▀▄    ▄▀  ▄▀    █  ▀▄   █   ▄▀   █     █      ▄▀    █   \033[0m\n");
+    printf("\033[31m   ▄▀▄▄▄▄▀   ▀▀▀▀   █     █    █▀▀▀   █   ▄▀   ▄▀▀▀▀▀▄  █      █      \033[0m\n");
+    printf("\033[32m  █     ▐           ▐     ▐    ▐      ▐   ▐   █      █  ▐      ▐     \033[0m\n");
+    printf("\033[31m  ▐                                           ▐      ▐               \033[0m\n");
+
+
+  
     // Define variables
-    unsigned char *res;                // Result
-    unsigned char *sol;                // Solution
+    unsigned char *res;                // Buffer for storage the content of the file encrypted
+    unsigned char *sol;                // Buffer for storage the content of the file decrypted
     
-    BN_CTX *ctx;                       // Context
+    BN_CTX *ctx;                       // Context for the BIGNUM
     RSA *private;                      // Private key
-    BIO *bioprint;                     // BIO
-    BIGNUM *one;                       // One
+    BIO *bioprint;                     // BIO for print the certificate in the terminal
+    BIGNUM *one;                       // One for the BIGNUM
     
-    RSA *rsa1;                         // RSA key
-    BIGNUM *n1;                        // n
-    BIGNUM *q1;                        // q
+    RSA *rsa1;                         // RSA key -----
+    BIGNUM *n1;                        // n           - > First certificate
+    BIGNUM *q1;                        // q       -----
     
-    RSA *rsa2;                         // RSA key
-    BIGNUM *n2;                        // n
-    BIGNUM *q2;                        // q
+    RSA *rsa2;                         // RSA key -----
+    BIGNUM *n2;                        // n           - > Second certificate
+    BIGNUM *q2;                        // q       -----
 
-    BIGNUM *p;                         // p
+    BIGNUM *p;                         // Prime number, factor of n1 and n2
 
-    BIGNUM *totient;                   // Totient
+    BIGNUM *totient;                   // Totient (phi) of n
     BIGNUM *fi1;                       // Totient of n1
     BIGNUM *fi2;                       // Totient of n2
 
-    BIGNUM *e;                         // e
-    BIGNUM *d;                         // d
+    BIGNUM *e;                         // Exponent of the public key
+    BIGNUM *d;                         // Exponent of the private key
 
-    int fd;                            // File descriptor
-    int len;                           // Length of the file
+    int fd;                            // File descriptor for read the file encrypted
+    int len;                           // Length of the file encrypted (number of bytes)
 
     (void) argc;                       // Unused variable
     
-    // Initialize variables
+    // Initialize variables and we allocate memory for the variables that need it
     res = malloc(sizeof(unsigned char) * BUFFER); // Allocate memory for the result
     sol = malloc(sizeof(unsigned char) * BUFFER); // Allocate memory for the solution
 
@@ -138,9 +139,12 @@ int main(int argc, char **argv)       // Main function
     
     bioprint = BIO_new_fp(stdout, BIO_NOCLOSE); // Initialize the BIO
 
+    // Read the public keys.
     rsa1 = read_public_key(argv[1]);    // Read the public key
     rsa2 = read_public_key(argv[2]);   // Read the public key
     
+
+    // We calculate the prime numbers p, q1 and q2, which are the factors of n1 and n2.
     one = BN_new();                    // Initialize the BIGNUM
 
     q1 = BN_new();                     // Initialize the BIGNUM
@@ -155,7 +159,7 @@ int main(int argc, char **argv)       // Main function
 
     private = RSA_new();               // Initialize the RSA key
 
-    // Calculate the totient
+    // Calculate the totient of n1 and n2.
     n1 = (BIGNUM*) RSA_get0_n(rsa1);   // Get the n
     n2 = (BIGNUM*) RSA_get0_n(rsa2);   // Get the n
     e = (BIGNUM*) RSA_get0_e(rsa1);    // Get the e
